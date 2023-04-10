@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include "gfx.h"
+#include <unistd.h>
 
-int num_squares = 10;   // number of sqaures in a row/column
+const int num_squares = 20;   // number of sqaures in a row/column
 static int side = 40;   // length of the side of one square
 int margin = 10;   // margin between the field and edge of the window
-int field[10][10];
+int field[num_squares][num_squares];
 
 void gen_grid(int num_squares, int side, int margin) {
 	// function that generates a grid for the game field
@@ -47,6 +48,90 @@ void empty_field() {
 	}
 }
 
+void update_field() {
+	// function that updates the field matrix according to the rules
+	// of Game of Life
+	int new_field[num_squares][num_squares];
+	for (int row = 0; row < num_squares; ++row) {
+		for (int col = 0; col < num_squares; ++col) {
+			// counter for number of alive cells around
+			int counter = 0;
+
+			// arrays for rows and columns surrounding the cell
+			int rows[3] = {0, row, 0};
+			int cols[3] = {0, col, 0};
+
+			// checking if we are on the top row of the field
+			if (row == 0) {
+				rows[0] = num_squares - 1;
+			} else {
+				rows[0] = row - 1;
+			}
+
+			// checking if we are on the bottom row of the field
+			if (row == num_squares - 1) {
+				rows[2] = 0;
+			} else {
+				rows[2] = row + 1;
+			}
+
+			// checking if we are on the leftmost column
+			if (col == 0) {
+				cols[0] = num_squares - 1;
+			} else {
+				cols[0] = col - 1;
+			}
+
+			// checking if we are on the rightmost column
+			if (col == num_squares - 1) {
+				cols[2] = 0;
+			} else {
+				cols[2] = col + 1;
+			}
+
+			// counting the number of adjacent cells alive
+			for (int r = 0; r < 3; ++r) {
+				for (int c = 0; c < 3; ++c) {
+					counter += field[rows[r]][cols[c]];
+				}
+			}
+
+			// subtracting the value of the cell itself
+			counter -= field[row][col];
+
+			// if cell is dead
+			if (field[row][col] == 0) {
+				// checking if the cell is reproducing
+				if (counter == 3) {
+					new_field[row][col] = 1;
+				} else {
+					new_field[row][col] = 0;
+				}
+				
+			} else {
+				// check if dies due to underpopulation
+				if (counter < 2) {
+					new_field[row][col] = 0;
+				// check if dies due to overpopulation
+				} else if (counter > 3) {
+					new_field[row][col] = 0;
+				// survives otherwise
+				} else {
+					new_field[row][col] = 1;
+				}
+			}
+
+		}
+	}
+
+	// updating the field
+	for (int row = 0; row < num_squares; ++row) {
+		for (int col = 0; col < num_squares; ++col) {
+			field[row][col] = new_field[row][col];
+		}
+	}
+}
+
 void gen_board() {
 	// function that inspects the contents of field matrix
 	// and generates a visual representation of it on the game field
@@ -70,13 +155,23 @@ int main() {
 	empty_field();
 	field[1][1] = 1;
 	field[2][3] = 1;
-	field[0][0] = 1;
+	field[3][3] = 1;
+	field[4][3] = 1;
 	field[9][9] = 1;
 	
 	// generating the grid for the field
 	gen_grid(num_squares, side, margin);
 	gen_board();
-
+	
+	while (1) {
+		gfx_clear();
+		update_field();
+		gen_board();
+		gen_grid(num_squares, side, margin);
+		gfx_flush();
+		sleep(1);
+	}
+	/*
 	char c;
 	while(1) {
 		// Wait for the user to press a character.
@@ -85,6 +180,6 @@ int main() {
 		// Quit if it is the letter q.
 		if(c=='q') break;
 	}
-
+	*/
 	return 0;
 }
