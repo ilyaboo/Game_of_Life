@@ -57,7 +57,7 @@ void gen_start_button() {
 void gen_reset_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
-	gfx_color(200, 0, 100);   // setting color to red
+	gfx_color(255, 85, 65);   // setting color to red
 	fill(reset_button_x, reset_button_y, reset_button_x + reset_button_width, reset_button_y + reset_button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
@@ -71,9 +71,10 @@ void empty_field() {
 	}
 }
 
-void update_field() {
+int update_field() {
 	// function that updates the field matrix according to the rules
 	// of Game of Life
+	// returns 1 if made any updates, 0 otherwise
 	int new_field[num_squares][num_squares];
 	for (int row = 0; row < num_squares; ++row) {
 		for (int col = 0; col < num_squares; ++col) {
@@ -147,12 +148,19 @@ void update_field() {
 		}
 	}
 
+	// flag showing if there are any differences between old and new matrices
+	int diff = 0;
+
 	// updating the field
 	for (int row = 0; row < num_squares; ++row) {
 		for (int col = 0; col < num_squares; ++col) {
+			if (field[row][col] != new_field[row][col]) {
+				diff = 1;
+			}
 			field[row][col] = new_field[row][col];
 		}
 	}
+	return diff;
 }
 
 void gen_board() {
@@ -239,18 +247,17 @@ int main() {
 				update_all();
 			} else if (result == 2) {
 				// clicked on the start button
-				while (1) {
-					update_field();
+				int not_done = 1;
+				while (not_done) {
+					not_done = update_field();
 					update_all();
 					usleep(sleep_time);   // refresh field every 0.5 seconds
 				}
 			} else if (result == 3) {
-				break;
+				empty_field();
+				update_all();
 			}
 		}
 	}
-
-	/* 		// Quit if it is the letter q.
-		if(c=='q') break;*/
 	return 0;
 }
