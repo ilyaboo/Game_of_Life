@@ -2,9 +2,13 @@
 #include "gfx.h"
 #include <unistd.h>
 
-const int num_squares = 20;   // number of sqaures in a row/column
-static int side = 40;   // length of the side of one square
-int margin = 10;   // margin between the field and edge of the window
+const int num_squares = 15;   // number of sqaures in a row/column
+const int side = 35;   // length of the side of one square
+const int margin = 10;   // margin between the field and edge of the window
+int start_button_x = margin * 2 + side * num_squares;
+int start_button_y = margin + side;
+int start_button_width = 3 * side;   // width of the start button (multiple of side of the square)
+int start_button_height = 1 * side;   // height of the start button (multiple of side of the square)
 int field[num_squares][num_squares];
 
 void gen_grid(int num_squares, int side, int margin) {
@@ -37,6 +41,12 @@ void fill_square_at_location(int row, int col) {
 	// function that fills the square in the given location
 	// on the field with color
 	fill_square(margin + row * side, margin + col * side);
+}
+
+void gen_start_button() {
+	// function that generates the start button image
+	// responsible for launching the simulation
+	fill(start_button_x, start_button_y, start_button_x + start_button_width, start_button_y + start_button_height);
 }
 
 void empty_field() {
@@ -147,12 +157,11 @@ void gen_board() {
 
 int main() {
 	int ysize = margin * 2 + side * num_squares;   // vertical size of the window
-	int xsize = margin * 2 + side * num_squares;   // horizontal size of the window
-	gfx_open(xsize, ysize, "Game of Life");
-	gfx_color(0, 200, 100);	
-	
-	// initializing field with zeros
-	empty_field();
+	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
+	gfx_open(xsize, ysize, "Game of Life");   // creating the window
+	gfx_color(0, 200, 100);   // setting default color to green
+
+	// TEMP
 	field[2][1] = 1;
 	field[2][2] = 1;
 	field[2][3] = 1;
@@ -161,8 +170,20 @@ int main() {
 	
 	// generating the grid for the field
 	gen_grid(num_squares, side, margin);
+	gen_start_button();
 	gen_board();
 	
+	char c;
+	int hm;
+	while(1) {
+		// Wait for the user to press a character.
+		hm = gfx_wait();
+		if (hm == 1) gfx_line(200,400,150,350);
+		// Quit if it is the letter q.
+		if(c=='q') break;
+	}
+	
+	/*
 	while (1) {
 		gfx_clear();
 		update_field();
@@ -170,15 +191,6 @@ int main() {
 		gen_grid(num_squares, side, margin);
 		gfx_flush();
 		usleep(500000);   // refresh field every 0.5 seconds
-	}
-	/*
-	char c;
-	while(1) {
-		// Wait for the user to press a character.
-		c = gfx_wait();
-		if (c == 'e') gfx_line(200,400,150,350);
-		// Quit if it is the letter q.
-		if(c=='q') break;
 	}
 	*/
 	return 0;
