@@ -7,15 +7,23 @@ const int num_squares = 20;   // number of sqaures in a row/column
 const int side = 30;   // length of the side of one square
 const int margin = 10;   // margin between the field and edge of the window
 int sleep_time = 5 * 100000;   // time for refreshing the field
-int start_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the start button
-int start_button_y = margin + side;   // y position of the top left corner of the start button
 int start_button_width = 3 * side;   // width of the start button (multiple of side of the square)
 int start_button_height = 1 * side;   // height of the start button (multiple of side of the square)
-int reset_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the reset button
-int reset_button_y = margin + 3 * side;   // y position of the top left corner of the reset button
+int start_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the start button
+int start_button_y = margin + side;   // y position of the top left corner of the start button
 int reset_button_width = 3 * side;   // width of the reset button (multiple of side of the square)
 int reset_button_height = 1 * side;   // height of the reset button (multiple of side of the square)
+int reset_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the reset button
+int reset_button_y = margin + 3 * side;   // y position of the top left corner of the reset button
+int preset_button_width = 3 * side;   // width of the preset buttons (multiple of side of the square)
+int preset_button_height = 1 * side;   // height of the preset buttons (multiple of side of the square)
+int preset_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the preset buttons
+int preset1_button_y = margin + 5 * side;   // y position of the top left corner of the first preset button
+int preset2_button_y = margin + 7 * side;   // y position of the top left corner of the second preset button
+int preset3_button_y = margin + 9 * side;   // y position of the top left corner of the third preset button
 int field[num_squares][num_squares];
+
+
 
 void gen_grid(int num_squares, int side, int margin) {
 	// function that generates a grid for the game field
@@ -29,6 +37,8 @@ void gen_grid(int num_squares, int side, int margin) {
 	}
 }
 
+
+
 void fill(int x0, int y0, int x1, int y1) {
 	// function that fills the rectangular area betwen
 	// points (x0, y0) and (x1, y1) with color
@@ -37,11 +47,15 @@ void fill(int x0, int y0, int x1, int y1) {
 	}
 }
 
+
+
 void fill_square(int x0, int y0) {
 	// function that fills the square area with top left corner
 	// at (x0, y0) and with side side with color
 	fill(x0, y0, x0 + side, y0 + side);
 }
+
+
 
 void fill_square_at_location(int row, int col) {
 	// function that fills the square in the given location
@@ -49,11 +63,15 @@ void fill_square_at_location(int row, int col) {
 	fill_square(margin + row * side, margin + col * side);
 }
 
+
+
 void gen_start_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
 	fill(start_button_x, start_button_y, start_button_x + start_button_width, start_button_y + start_button_height);
 }
+
+
 
 void gen_reset_button() {
 	// function that generates the start button image
@@ -63,6 +81,17 @@ void gen_reset_button() {
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
+
+
+void gen_preset1_button() {
+	// function that generates the first preset button
+	gfx_color(90, 90, 90);   // setting color to red
+	fill(preset_button_x, preset1_button_y, preset_button_x + preset_button_width, preset1_button_y + preset_button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+
+
 void empty_field() {
 	// function that sets all values of the field matrix to zero
 	for (int row = 0; row < num_squares; ++row) {
@@ -71,6 +100,20 @@ void empty_field() {
 		}
 	}
 }
+
+
+
+void preset1() {
+	// function that modifies the field matrix according to the first preset
+	empty_field();
+	field[3][4] = 1;
+	field[3][5] = 1;
+	field[4][3] = 1;
+	field[4][4] = 1;
+	field[5][4] = 1;
+}
+
+
 
 int update_field() {
 	// function that updates the field matrix according to the rules
@@ -164,6 +207,8 @@ int update_field() {
 	return diff;
 }
 
+
+
 void gen_board() {
 	// function that inspects the contents of field matrix
 	// and generates a visual representation of it on the game field
@@ -177,6 +222,8 @@ void gen_board() {
 	}
 }
 
+
+
 void update_all() {
 	// function that updates all the interface according to the current
 	// state of the field
@@ -185,8 +232,11 @@ void update_all() {
 	gen_board();
 	gen_start_button();
 	gen_reset_button();
+	gen_preset1_button();
 	gfx_flush();
 }
+
+
 
 int click_pos(int x, int y) {
 	// function that outputs the place of the screen on which
@@ -202,11 +252,17 @@ int click_pos(int x, int y) {
 	 (y >= reset_button_y && y <= reset_button_y + reset_button_height)) {
 		// the user clicked on the reset button
 		return 3;
+	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
+	 (y >= preset1_button_y && y <= preset1_button_y + preset_button_height)) {
+		// the user chose preset 1
+		return 4;
 	} else {
 		// missed any element of the interface
 		return 0;
 	}
 }
+
+
 
 int get_row(int x) {
 	// function that returns the row of the field
@@ -214,11 +270,15 @@ int get_row(int x) {
 	return (x - margin) / side;
 }
 
+
+
 int get_col(int y) {
 	// function that returns the column of the field
 	// corresponding to the entered y coordinate
 	return (y - margin) / side;
 }
+
+
 
 int main() {
 	int ysize = margin * 2 + side * num_squares;   // vertical size of the window
@@ -258,6 +318,9 @@ int main() {
 				}
 			} else if (result == 3) {
 				empty_field();
+				update_all();
+			} else if (result == 4) {
+				preset1();
 				update_all();
 			}
 		}
