@@ -5,10 +5,15 @@
 const int num_squares = 20;   // number of sqaures in a row/column
 const int side = 30;   // length of the side of one square
 const int margin = 10;   // margin between the field and edge of the window
+int sleep_time = 5 * 100000;   // time for refreshing the field
 int start_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the start button
 int start_button_y = margin + side;   // y position of the top left corner of the start button
 int start_button_width = 3 * side;   // width of the start button (multiple of side of the square)
 int start_button_height = 1 * side;   // height of the start button (multiple of side of the square)
+int reset_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the reset button
+int reset_button_y = margin + 3 * side;   // y position of the top left corner of the reset button
+int reset_button_width = 3 * side;   // width of the reset button (multiple of side of the square)
+int reset_button_height = 1 * side;   // height of the reset button (multiple of side of the square)
 int field[num_squares][num_squares];
 
 void gen_grid(int num_squares, int side, int margin) {
@@ -47,6 +52,14 @@ void gen_start_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
 	fill(start_button_x, start_button_y, start_button_x + start_button_width, start_button_y + start_button_height);
+}
+
+void gen_reset_button() {
+	// function that generates the start button image
+	// responsible for launching the simulation
+	gfx_color(200, 0, 100);   // setting color to red
+	fill(reset_button_x, reset_button_y, reset_button_x + reset_button_width, reset_button_y + reset_button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void empty_field() {
@@ -162,6 +175,7 @@ void update_all() {
 	gen_grid(num_squares, side, margin);
 	gen_board();
 	gen_start_button();
+	gen_reset_button();
 	gfx_flush();
 }
 
@@ -175,6 +189,10 @@ int click_pos(int x, int y) {
 	 (y >= start_button_y && y <= start_button_y + start_button_height)) {
 		// the user clicked on the start button
 		return 2;
+	} else if ((x >= reset_button_x && x <= reset_button_x + reset_button_width) &&\
+	 (y >= reset_button_y && y <= reset_button_y + reset_button_height)) {
+		// the user clicked on the reset button
+		return 3;
 	} else {
 		// missed any element of the interface
 		return 0;
@@ -198,13 +216,6 @@ int main() {
 	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
 	gfx_open(xsize, ysize, "Game of Life");   // creating the window
 	gfx_color(0, 200, 100);   // setting default color to green
-
-	// TEMP
-	field[2][1] = 1;
-	field[2][2] = 1;
-	field[2][3] = 1;
-	field[1][3] = 1;
-	field[0][2] = 1;
 	
 	// generating the grid for the field
 	update_all();
@@ -220,30 +231,24 @@ int main() {
 				// clicked on the field
 				int row = get_row(x);
 				int col = get_col(y);
-				field[row][col] = 1;
+				if (field[row][col] == 0) {
+					field[row][col] = 1;   // if the field was empty
+				} else {
+					field[row][col] = 0;   // if the field was filled
+				}
 				update_all();
 			} else if (result == 2) {
 				// clicked on the start button
 				while (1) {
 					update_field();
 					update_all();
-					usleep(500000);   // refresh field every 0.5 seconds
+					usleep(sleep_time);   // refresh field every 0.5 seconds
 				}
+			} else if (result == 3) {
+				break;
 			}
 		}
-
 	}
-	
-	/*
-	while (1) {
-		gfx_clear();
-		update_field();
-		gen_board();
-		gen_grid(num_squares, side, margin);
-		gfx_flush();
-		usleep(500000);   // refresh field every 0.5 seconds
-	}
-	*/
 
 	/* 		// Quit if it is the letter q.
 		if(c=='q') break;*/
