@@ -153,11 +153,11 @@ int main() {
 	
 	// initializing field with zeros
 	empty_field();
-	field[1][1] = 1;
+	field[2][1] = 1;
+	field[2][2] = 1;
 	field[2][3] = 1;
-	field[3][3] = 1;
-	field[4][3] = 1;
-	field[9][9] = 1;
+	field[1][3] = 1;
+	field[0][2] = 1;
 	
 	// generating the grid for the field
 	gen_grid(num_squares, side, margin);
@@ -169,7 +169,7 @@ int main() {
 		gen_board();
 		gen_grid(num_squares, side, margin);
 		gfx_flush();
-		sleep(1);
+		usleep(500000);   // refresh field every 0.5 seconds
 	}
 	/*
 	char c;
