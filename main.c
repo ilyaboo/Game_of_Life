@@ -2,6 +2,7 @@
 #include "gfx.h"
 #include <unistd.h>
 
+const int max_epochs = 40;   // the maximum number of epochs after which the program stops
 const int num_squares = 20;   // number of sqaures in a row/column
 const int side = 30;   // length of the side of one square
 const int margin = 10;   // margin between the field and edge of the window
@@ -248,7 +249,9 @@ int main() {
 			} else if (result == 2) {
 				// clicked on the start button
 				int not_done = 1;
-				while (not_done) {
+				int epoch_counter = 0;
+				while (not_done && epoch_counter < max_epochs) {
+					epoch_counter += 1;
 					not_done = update_field();
 					update_all();
 					usleep(sleep_time);   // refresh field every 0.5 seconds
