@@ -101,6 +101,15 @@ void gen_preset2_button() {
 
 
 
+void gen_preset3_button() {
+	// function that generates the third preset button
+	gfx_color(90, 90, 90);   // setting color to red
+	fill(preset_button_x, preset3_button_y, preset_button_x + preset_button_width, preset3_button_y + preset_button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+
+
 void empty_field() {
 	// function that sets all values of the field matrix to zero
 	for (int row = 0; row < num_squares; ++row) {
@@ -169,6 +178,62 @@ void preset2() {
 	field[34][4] = 1;
 	field[35][3] = 1;
 	field[35][4] = 1;
+}
+
+
+
+void preset3() {
+	// function that modifies the field matrix according to the third preset
+	empty_field();
+	field[0][5] = 1;
+	field[1][5] = 1;
+	field[0][6] = 1;
+	field[1][6] = 1;
+	field[12][4] = 1;
+	field[12][5] = 1;
+	field[12][6] = 1;
+	field[12][7] = 1;
+	field[12][8] = 1;
+	field[13][3] = 1;
+	field[13][5] = 1;
+	field[13][6] = 1;
+	field[13][7] = 1;
+	field[13][9] = 1;
+	field[14][4] = 1;
+	field[14][8] = 1;
+	field[15][5] = 1;
+	field[15][6] = 1;
+	field[15][7] = 1;
+	field[16][6] = 1;
+	field[20][4] = 1;
+	field[21][4] = 1;
+	field[22][3] = 1;
+	field[22][5] = 1;
+	field[23][2] = 1;
+	field[23][3] = 1;
+	field[23][5] = 1;
+	field[23][6] = 1;
+	field[24][1] = 1;
+	field[24][7] = 1;
+	field[25][4] = 1;
+	field[26][1] = 1;
+	field[26][2] = 1;
+	field[26][6] = 1;
+	field[26][7] = 1;
+	field[29][5] = 1;
+	field[30][5] = 1;
+	field[31][6] = 1;
+	field[34][3] = 1;
+	field[34][4] = 1;
+	field[35][3] = 1;
+	field[35][4] = 1;
+	field[33][21] = 1;
+	field[33][22] = 1;
+	field[34][21] = 1;
+	field[34][23] = 1;
+	field[35][23] = 1;
+	field[36][23] = 1;
+	field[36][24] = 1;
 }
 
 
@@ -292,6 +357,7 @@ void update_all() {
 	gen_reset_button();
 	gen_preset1_button();
 	gen_preset2_button();
+	gen_preset3_button();
 	gfx_flush();
 }
 
@@ -319,6 +385,10 @@ int click_pos(int x, int y) {
 	 (y >= preset2_button_y && y <= preset2_button_y + preset_button_height)) {
 		// the user chose preset 2
 		return 5;
+	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
+	 (y >= preset3_button_y && y <= preset3_button_y + preset_button_height)) {
+		// the user chose preset 3
+		return 6;
 	} else {
 		// missed any element of the interface
 		return 0;
@@ -387,6 +457,9 @@ int main() {
 				update_all();
 			} else if (result == 5) {
 				preset2();
+				update_all();
+			} else if (result == 6) {
+				preset3();
 				update_all();
 			}
 		}
