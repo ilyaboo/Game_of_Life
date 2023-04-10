@@ -2,11 +2,11 @@
 #include "gfx.h"
 #include <unistd.h>
 
-const int max_epochs = 40;   // the maximum number of epochs after which the program stops
-const int num_squares = 20;   // number of sqaures in a row/column
-const int side = 30;   // length of the side of one square
+const int max_epochs = 50;   // the maximum number of epochs after which the program stops
+const int num_squares = 40;   // number of sqaures in a row/column
+const int side = 15;   // length of the side of one square
 const int margin = 10;   // margin between the field and edge of the window
-int sleep_time = 5 * 100000;   // time for refreshing the field
+int sleep_time = 4 * 100000;   // time for refreshing the field
 int start_button_width = 3 * side;   // width of the start button (multiple of side of the square)
 int start_button_height = 1 * side;   // height of the start button (multiple of side of the square)
 int start_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the start button
@@ -92,6 +92,15 @@ void gen_preset1_button() {
 
 
 
+void gen_preset2_button() {
+	// function that generates the second preset button
+	gfx_color(90, 90, 90);   // setting color to red
+	fill(preset_button_x, preset2_button_y, preset_button_x + preset_button_width, preset2_button_y + preset_button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+
+
 void empty_field() {
 	// function that sets all values of the field matrix to zero
 	for (int row = 0; row < num_squares; ++row) {
@@ -106,11 +115,60 @@ void empty_field() {
 void preset1() {
 	// function that modifies the field matrix according to the first preset
 	empty_field();
-	field[3][4] = 1;
-	field[3][5] = 1;
 	field[4][3] = 1;
+	field[5][3] = 1;
+	field[3][4] = 1;
 	field[4][4] = 1;
-	field[5][4] = 1;
+	field[4][5] = 1;
+}
+
+
+
+void preset2() {
+	// function that modifies the field matrix according to the second preset
+	empty_field();
+	field[0][5] = 1;
+	field[1][5] = 1;
+	field[0][6] = 1;
+	field[1][6] = 1;
+	field[12][4] = 1;
+	field[12][5] = 1;
+	field[12][6] = 1;
+	field[12][7] = 1;
+	field[12][8] = 1;
+	field[13][3] = 1;
+	field[13][5] = 1;
+	field[13][6] = 1;
+	field[13][7] = 1;
+	field[13][9] = 1;
+	field[14][4] = 1;
+	field[14][8] = 1;
+	field[15][5] = 1;
+	field[15][6] = 1;
+	field[15][7] = 1;
+	field[16][6] = 1;
+	field[20][4] = 1;
+	field[21][4] = 1;
+	field[22][3] = 1;
+	field[22][5] = 1;
+	field[23][2] = 1;
+	field[23][3] = 1;
+	field[23][5] = 1;
+	field[23][6] = 1;
+	field[24][1] = 1;
+	field[24][7] = 1;
+	field[25][4] = 1;
+	field[26][1] = 1;
+	field[26][2] = 1;
+	field[26][6] = 1;
+	field[26][7] = 1;
+	field[29][5] = 1;
+	field[30][5] = 1;
+	field[31][6] = 1;
+	field[34][3] = 1;
+	field[34][4] = 1;
+	field[35][3] = 1;
+	field[35][4] = 1;
 }
 
 
@@ -233,6 +291,7 @@ void update_all() {
 	gen_start_button();
 	gen_reset_button();
 	gen_preset1_button();
+	gen_preset2_button();
 	gfx_flush();
 }
 
@@ -256,6 +315,10 @@ int click_pos(int x, int y) {
 	 (y >= preset1_button_y && y <= preset1_button_y + preset_button_height)) {
 		// the user chose preset 1
 		return 4;
+	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
+	 (y >= preset2_button_y && y <= preset2_button_y + preset_button_height)) {
+		// the user chose preset 2
+		return 5;
 	} else {
 		// missed any element of the interface
 		return 0;
@@ -321,6 +384,9 @@ int main() {
 				update_all();
 			} else if (result == 4) {
 				preset1();
+				update_all();
+			} else if (result == 5) {
+				preset2();
 				update_all();
 			}
 		}
