@@ -64,7 +64,14 @@ const int start_button_y = margin + side;   // y position of the top left corner
 ```
 Even though some of these parameters repeat themselves, I intentionally left them like that in order to be able to adjust button positions and sizes.
 
-### Interface functions
+### Functions
+
+Functions I used in the code are can be grouped in the following categories.
+ - **Interface functions** use the gfx library and are used to manipulate the interface of the program. Most of these function utilize the helper function `void fill(x1, y1, x2, y2)`, which fills the rectangular area between points `(x1, y1)` and `(x2, y2)` with color. Other functions in these categories include other helper functions, which simplify the use of the "fill" function, functions that generate buttons, `void gen_board()` function that reads from the `field` 2D array to display its current state, and `void update_all()` function that applies all the changes made to the board.
+ - **Interface interaction functions** are used to process user input. This section has a `int click_pos(int x, int y)` function that identifies on which part of the interface did the user click. Helper functions `int get_row(int x)` and `int get_col(int y)` help identify the cell on which the user clicked.
+ - **Field functions** manipulate the `field` 2D arrray. These include `void empty_field()` which sets all the values of the array to zeros, preset functions, which set the `field` state according to the provided preset, as well as the `int update_field()` which updates the `field` by one generation accoring to the rules of game. Notice that this function treats the field as a confined area, making the cells on one edge of the field adjacent to the ones on the opposite side of the field. This implementation enhances the game experience while still allowing the user to explore classical patterns.
+
+### Main function
 
 
 
