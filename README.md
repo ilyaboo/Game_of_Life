@@ -57,10 +57,10 @@ These parameters are responsible for visual representation of the field. `side` 
 
 These parameters set the coordinates of the top left corner of each button, as well as the size of each button. For example, here are the corresponding parameters for the "start" button.
 ```c
-const int start_button_width = 3 * side;   // width of the start button (multiple of side of the square)
-const int start_button_height = 1 * side;   // height of the start button (multiple of side of the square)
-const int start_button_x = margin * 2 + side * num_squares;   // x position of the top left corner of the start button
-const int start_button_y = margin + side;   // y position of the top left corner of the start button
+const int start_button_width = 3 * side;
+const int start_button_height = 1 * side;
+const int start_button_x = margin * 2 + side * num_squares;
+const int start_button_y = margin + side;
 ```
 Even though some of these parameters repeat themselves, I intentionally left them like that in order to be able to adjust button positions and sizes.
 
@@ -76,7 +76,33 @@ These manipulate the `field` 2D arrray. These include `void empty_field()` which
 
 ### Main function
 
-
+`int main()` starts with initialization of `ysize` and `xsize`, which are the height and the width of the program window respectively.
+```c
+int ysize = margin * 2 + side * num_squares;
+int xsize = margin * 3 + side * num_squares + start_button_width;
+```
+Notice that both integers are calculated dynamically depending on some of the parameters defined in the beginning of the program. This allows the size of the window to perfectly fit all the elements of the interface.
+Then a program window with the calculated dimensions is created by the following line of code.
+```c
+gfx_open(xsize, ysize, "Game of Life");
+```
+Then the default color is set to green.
+```c
+gfx_color(0, 200, 100);
+```
+Finally, the call for the `update_all()` function makes all the interface elements appear in the window.
+```c
+update_all();
+```
+The program then inters an infinite loop which reads user's input – a click of the left mouse button (LMB) on one of the interface elements.
+```c
+int click = gfx_wait();
+```
+The program then calls the ```click_pos()``` function to evaluate the click.
+```c
+int result = click_pos(x, y);
+```
+The program will then adjust the interface according to the result of the evaluation. Options include adding or removing the cell from the initial setup, resetting the setup, loading one of the presets, and launching the simulation. Notice that active simulation will either finish after creating a maximum number of generations of generations specified in the beginning of the program, or when it detects that the field reached a static state.
 
 ## Installation
 
