@@ -1,5 +1,7 @@
 # Conway's Game of Life
 
+![intro](https://user-images.githubusercontent.com/108785038/231083639-af67405b-abd0-45bb-b79a-36b8b078ec22.gif)
+
 This is a C program that implements [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). The program allows the user to select the initial alive cells manually as well as to select one of the presets.
 
 ## Background information
