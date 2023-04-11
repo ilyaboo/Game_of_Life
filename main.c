@@ -417,17 +417,13 @@ int main() {
 	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
 	gfx_open(xsize, ysize, "Game of Life");   // creating the window
 	gfx_color(0, 200, 100);   // setting default color to green
-	
-	// generating the grid for the field
-	update_all();
-	
-	int click;
+	update_all();   // generating the grid for the field
 	while (1) {
-		click = gfx_wait();
-		if (click == 1) {
-			int x = gfx_xpos();
+		int click = gfx_wait();   // reading user's input
+		if (click == 1) {   // if user clicked with LMB
+			int x = gfx_xpos();   // obtaining the coordinates of the point on which user clicked
 			int y = gfx_ypos();
-			int result = click_pos(x, y);
+			int result = click_pos(x, y);   // identify the element on which user clicked
 			if (result == 1) {
 				// clicked on the field
 				int row = get_row(x);
@@ -449,15 +445,19 @@ int main() {
 					usleep(sleep_time);   // refresh field every 0.5 seconds
 				}
 			} else if (result == 3) {
+				// clicked on the reset button
 				empty_field();
 				update_all();
 			} else if (result == 4) {
+				// clicked on the first preset button
 				preset1();
 				update_all();
 			} else if (result == 5) {
+				// clicked on the second preset button
 				preset2();
 				update_all();
 			} else if (result == 6) {
+				// clicked on the third preset button
 				preset3();
 				update_all();
 			}
