@@ -1,7 +1,7 @@
 # Conway's Game of Life
 
 <p align = "center">
-  <img src = "https://user-images.githubusercontent.com/108785038/231281904-8b67990c-feba-4692-a37b-4f2cdd364ea7.gif">
+  <img src = "https://user-images.githubusercontent.com/108785038/231323309-37a6fc78-022b-4e50-afbb-f61d9f1e2add.gif">
 </p>
   
 This is a C program that implements [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). The program allows the user to select the initial alive cells manually as well as to select one of the presets.
