@@ -135,7 +135,7 @@ $ ./game_of_life
 The interface of the game consists of the following elements:
 
 - *Field* (grid) that consists of the empty squares. Click on the square to place a live cell in it. Click in the live cell once again to remove it.
-- *Green button* that will launch the simulation from the current state of the field. The simulation will **automatically end** after processing 50 (by default) generations of the cell or when it detects a static state (new generations are identical to the previous ones), including death of all of the cells.
+- *Green button* that will launch the simulation from the current state of the field. The simulation will **automatically end** after processing 50 (by default) generations of the cell or when it detects a static state (new generations are identical to the previous ones), including death of all of the cells. Note that to continue the simulation after the program processed 50 generations you can simply click on the green button again.
 - *Red button* allows you to reset the current state of the field, removing any live cells.
 - *Gray buttons* are responsible for loading presets. Click on a gray button to maek the preset appear on the field. You can either launch the simulation from there by clicking on the green button or adjust the field the way you want.
 
