@@ -80,8 +80,8 @@ void fill_square_at_location(int row, int col) {
 }
 
 void draw_triangle(int xtl, int ytl, int xbr, int ybr, int direction) {
-    int x1, y1, x2, y2, x3, y3; // vertices of equilateral triangle (x1, y1), (x2, y2), (x3, y3)
-    // Calculate the three vertices of the equilateral triangle based on the direction
+    int x1, y1, x2, y2, x3, y3; // vertices of isosceles triangle (x1, y1), (x2, y2), (x3, y3)
+    // Calculate the three vertices of the isosceles triangle based on the direction
     switch (direction) {
         case 1: // upward looking triangle
             x1 = (int) ((xtl + xbr) / 2);
@@ -123,9 +123,15 @@ void draw_triangle(int xtl, int ytl, int xbr, int ybr, int direction) {
     gfx_line(x3, y3, x1, y1);
 }
 
-void fill_triangle(int x, int y, int triangle_side, int direction) {
+void fill_triangle(int x0, int y0, int x1, int y1, int direction) {
 	// function that fill an area of triangular shape with color
-	//for (int i = 0; i < )
+	while (x0 < x1 && y0 < y1) {
+		draw_triangle(x0, y0, x1, y1, direction);
+		x0 += 1;
+		y0 += 1;
+		x1 -= 1;
+		y1 -= 1;
+	}
 }
 
 void gen_start_button() {
@@ -148,7 +154,7 @@ void gen_framerate_buttons() {
 	fill(preset_button_x, framerate_buttons_y, preset_button_x + (int) (1.2 * side), framerate_buttons_y + side);
 	fill(preset_button_x + (int) (1.8 * side), framerate_buttons_y, preset_button_x + 3 * side, framerate_buttons_y + side);
 	gfx_color(204, 153, 0);
-	draw_triangle(preset_button_x, framerate_buttons_y, preset_button_x + side, framerate_buttons_y + 2 * side, 1);
+	fill_triangle(preset_button_x, framerate_buttons_y, preset_button_x + side, framerate_buttons_y + 2 * side, 1);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
