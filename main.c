@@ -233,19 +233,27 @@ int click_pos(int x, int y) {
 	} else if ((x >= reset_button_x && x <= reset_button_x + reset_button_width) &&\
 	 (y >= reset_button_y && y <= reset_button_y + reset_button_height)) {
 		// the user clicked on the reset button
-		return 3;
+		return 7;
+	} else if ((x >= reset_button_x && x <= reset_button_x + 1.2 * side) &&\
+	 (y >= framerate_buttons_y && y <= framerate_buttons_y + reset_button_height)) {
+		// the user clicked on the decrease frameraet button
+		return 8;
+	} else if ((x >= reset_button_x + 1.8 * side && x <= reset_button_x + 3 * side) &&\
+	 (y >= framerate_buttons_y && y <= framerate_buttons_y + reset_button_height)) {
+		// the user clicked on the increase framerate button
+		return 5;
 	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
 	 (y >= preset1_button_y && y <= preset1_button_y + preset_button_height)) {
 		// the user chose preset 1
-		return 4;
+		return 6;
 	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
 	 (y >= preset2_button_y && y <= preset2_button_y + preset_button_height)) {
 		// the user chose preset 2
-		return 5;
+		return 7;
 	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
 	 (y >= preset3_button_y && y <= preset3_button_y + preset_button_height)) {
 		// the user chose preset 3
-		return 6;
+		return 8;
 	} else {
 		// missed any element of the interface
 		return 0;
@@ -524,15 +532,15 @@ int main() {
 				// clicked on the reset button
 				empty_field();
 				update_all();
-			} else if (result == 4) {
+			} else if (result == 6) {
 				// clicked on the first preset button
 				preset1();
 				update_all();
-			} else if (result == 5) {
+			} else if (result == 7) {
 				// clicked on the second preset button
 				preset2();
 				update_all();
-			} else if (result == 6) {
+			} else if (result == 8) {
 				// clicked on the third preset button
 				preset3();
 				update_all();
