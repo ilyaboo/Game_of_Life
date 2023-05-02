@@ -233,15 +233,15 @@ int click_pos(int x, int y) {
 	} else if ((x >= reset_button_x && x <= reset_button_x + reset_button_width) &&\
 	 (y >= reset_button_y && y <= reset_button_y + reset_button_height)) {
 		// the user clicked on the reset button
-		return 7;
+		return 3;
 	} else if ((x >= reset_button_x && x <= reset_button_x + 1.2 * side) &&\
 	 (y >= framerate_buttons_y && y <= framerate_buttons_y + reset_button_height)) {
 		// the user clicked on the decrease frameraet button
-		return 8;
+		return 7;
 	} else if ((x >= reset_button_x + 1.8 * side && x <= reset_button_x + 3 * side) &&\
 	 (y >= framerate_buttons_y && y <= framerate_buttons_y + reset_button_height)) {
 		// the user clicked on the increase framerate button
-		return 5;
+		return 8;
 	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
 	 (y >= preset1_button_y && y <= preset1_button_y + preset_button_height)) {
 		// the user chose preset 1
