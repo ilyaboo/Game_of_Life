@@ -125,13 +125,19 @@ void draw_triangle(int xtl, int ytl, int xbr, int ybr, int direction) {
 
 void fill_triangle(int x0, int y0, int x1, int y1, int direction) {
 	// function that fill an area of triangular shape with color
-	while (x0 < x1 && y0 < y1) {
+	while (x0 <= x1 && y0 <= y1) {
 		draw_triangle(x0, y0, x1, y1, direction);
 		x0 += 1;
 		y0 += 1;
 		x1 -= 1;
 		y1 -= 1;
 	}
+}
+
+void fill_equilateral_triangle(int x0, int y0, int triangle_side, int direction) {
+	// function that fills the area corresponding to equilateral triangle with side 
+	// triangle_side with color
+	fill_triangle(x0, y0, x0 + triangle_side, y0 + triangle_side, direction);
 }
 
 void gen_start_button() {
@@ -151,10 +157,11 @@ void gen_reset_button() {
 void gen_framerate_buttons() {
 	// function that generates the framerate change buttons
 	gfx_color(255, 200, 0);   // setting color to yellow
-	fill(preset_button_x, framerate_buttons_y, preset_button_x + (int) (1.2 * side), framerate_buttons_y + side);
-	fill(preset_button_x + (int) (1.8 * side), framerate_buttons_y, preset_button_x + 3 * side, framerate_buttons_y + side);
+	fill(preset_button_x, framerate_buttons_y, preset_button_x + 1.2 * side, framerate_buttons_y + side);
+	fill(preset_button_x + 1.8 * side, framerate_buttons_y, preset_button_x + 3 * side, framerate_buttons_y + side);
 	gfx_color(204, 153, 0);
-	fill_triangle(preset_button_x, framerate_buttons_y, preset_button_x + side, framerate_buttons_y + 2 * side, 1);
+	fill_equilateral_triangle(preset_button_x + 0.2 * side, framerate_buttons_y + side * 0.1, 0.8 * side, 3);
+	fill_equilateral_triangle(preset_button_x + 2 * side, framerate_buttons_y + side * 0.1, 0.8 * side, 1);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
