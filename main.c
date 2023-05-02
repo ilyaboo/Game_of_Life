@@ -33,9 +33,12 @@
 #define preset_button_width 3 * side   // width of the preset buttons (multiple of side of the square)
 #define preset_button_height side   // height of the preset buttons (multiple of side of the square)
 #define preset_button_x margin * 2 + side * num_squares   // x position of the top left corner of the preset buttons
-#define preset1_button_y margin + 5 * side   // y position of the top left corner of the first preset button
-#define preset2_button_y margin + 7 * side   // y position of the top left corner of the second preset button
-#define preset3_button_y margin + 9 * side   // y position of the top left corner of the third preset button
+
+#define framerate_buttons_y margin + 6 * side
+
+#define preset1_button_y margin + 8 * side   // y position of the top left corner of the first preset button
+#define preset2_button_y margin + 10 * side   // y position of the top left corner of the second preset button
+#define preset3_button_y margin + 12 * side   // y position of the top left corner of the third preset button
 int field[num_squares][num_squares];
 
 
@@ -66,7 +69,7 @@ void fill(int x0, int y0, int x1, int y1) {
 
 void fill_square(int x0, int y0) {
 	// function that fills the square area with top left corner
-	// at (x0, y0) and with side side with color
+	// at (x0, y0) and with side "side" with color
 	fill(x0, y0, x0 + side, y0 + side);
 }
 
@@ -87,6 +90,14 @@ void gen_reset_button() {
 	// responsible for launching the simulation
 	gfx_color(255, 85, 65);   // setting color to red
 	fill(reset_button_x, reset_button_y, reset_button_x + reset_button_width, reset_button_y + reset_button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+void gen_framerate_buttons() {
+	// function that generates the framerate change buttons
+	gfx_color(255, 200, 0);   // setting color to yellow
+	fill(preset_button_x, framerate_buttons_y, preset_button_x + (int) (1.2 * side), framerate_buttons_y + side);
+	fill(preset_button_x + (int) (1.8 * side), framerate_buttons_y, preset_button_x + 3 * side, framerate_buttons_y + side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
@@ -132,6 +143,7 @@ void update_all() {
 	gen_board();
 	gen_start_button();
 	gen_reset_button();
+	gen_framerate_buttons();
 	gen_preset1_button();
 	gen_preset2_button();
 	gen_preset3_button();
