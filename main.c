@@ -79,6 +79,50 @@ void fill_square_at_location(int row, int col) {
 	fill_square(margin + row * side, margin + col * side);
 }
 
+void draw_triangle(int x, int y, int triangle_side, int direction) {
+    int x1, y1, x2, y2, x3, y3; // vertices of equilateral triangle (x1, y1), (x2, y2), (x3, y3)
+    // Calculate the three vertices of the equilateral triangle based on the direction
+    switch (direction) {
+        case 1: // upward looking triangle
+            x1 = x + triangle_side / 2;
+            y1 = y;
+            x2 = x;
+            y2 = y + triangle_side;
+            x3 = x + triangle_side;
+            y3 = y + triangle_side;
+            break;
+        case 2: // triangle looking to the right
+            x1 = x;
+            y1 = y;
+            x2 = x + triangle_side;
+            y2 = y + triangle_side / 2;
+            x3 = x;
+            y3 = y + triangle_side;
+            break;
+        case 3: // downward looking triangle
+            x1 = x;
+            y1 = y;
+            x2 = x + triangle_side;
+            y2 = y;
+            x3 = x + triangle_side / 2;
+            y3 = y + triangle_side;
+            break;
+        case 4: // triangle looking to the left
+            x1 = x + triangle_side;
+            y1 = y;
+            x2 = x + triangle_side;
+            y2 = y + triangle_side;
+            x3 = x;
+            y3 = y + triangle_side / 2;
+            break;
+    }
+
+    // drawing the sides of the triangle
+    gfx_line(x1, y1, x2, y2);
+    gfx_line(x2, y2, x3, y3);
+    gfx_line(x3, y3, x1, y1);
+}
+
 void gen_start_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
@@ -98,6 +142,8 @@ void gen_framerate_buttons() {
 	gfx_color(255, 200, 0);   // setting color to yellow
 	fill(preset_button_x, framerate_buttons_y, preset_button_x + (int) (1.2 * side), framerate_buttons_y + side);
 	fill(preset_button_x + (int) (1.8 * side), framerate_buttons_y, preset_button_x + 3 * side, framerate_buttons_y + side);
+	gfx_color(204, 153, 0);
+	draw_triangle(preset_button_x, framerate_buttons_y, side, 1);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
