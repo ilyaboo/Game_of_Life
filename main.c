@@ -207,14 +207,22 @@ void gen_framerate_indicator_5() {
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
-void gen_framerate_indicators(int framerate_state) {
+void gen_framerate_indicators(int sleep_time) {
 	// generates the framerate indicators according to the
 	// current framerate_state
 	gen_framerate_indicator_1();
-	gen_framerate_indicator_2();
-	gen_framerate_indicator_3();
-	gen_framerate_indicator_4();
-	gen_framerate_indicator_5();
+	if (sleep_time < 1000000) {
+		gen_framerate_indicator_2();
+		if (sleep_time < 100000) {
+			gen_framerate_indicator_3();
+			if (sleep_time < 10000) {
+				gen_framerate_indicator_4();
+				if (sleep_time < 10000) {
+					gen_framerate_indicator_5();
+				}
+			}
+		}
+	}
 }
 
 void gen_framerate_buttons() {
@@ -348,6 +356,26 @@ void empty_field() {
 		for (int col = 0; col < num_squares; ++col) {
 			field[row][col] = 0;
 		}
+	}
+}
+
+int sleep_increase(int sleep_current) {
+	// function that attempts to increase the sleep time (framerate)
+	// returns updated sleep time
+	if (sleep_current != 1000000) {
+		return sleep_current * 10;
+	} else {
+		return sleep_current;
+	}
+}
+
+int sleep_decrease(int sleep_current) {
+	// function that attempts to decrease the sleep time (framerate)
+	// returns updated sleep time
+	if (sleep_current != 100) {
+		return sleep_current / 10;
+	} else {
+		return sleep_current;
 	}
 }
 
@@ -561,7 +589,7 @@ int update_field() {
 ///////////////////////////////////////
 
 int main() {
-	int sleep_time = 4 * 10000;   // time for refreshing the field in microseconds, default: 0.4s
+	int sleep_time = 10000;   // time for refreshing the field in microseconds
 	int ysize = margin * 2 + side * num_squares;   // vertical size of the window
 	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
 	gfx_open(xsize, ysize, "Game of Life");   // creating the window
@@ -608,10 +636,18 @@ int main() {
 			
 			case 4:
 				// clicked on framerate decrease button
+				// equivalent to increase in sleep time
+				sleep_time = sleep_increase(sleep_time);
+				gen_framerate_indicators(sleep_time);
+				update_all();
 				break;
 
 			case 5:
 				// clicked on framerate increase button
+				// equivalent to decrease in sleep time
+				sleep_time = sleep_decrease(sleep_time);
+				gen_framerate_indicators(sleep_time);
+				update_all();
 				break;
 			
 			case 6:
