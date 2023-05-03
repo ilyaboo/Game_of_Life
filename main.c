@@ -29,12 +29,11 @@
 #define reset_button_height side   // height of the reset button (multiple of side of the square)
 #define reset_button_x margin * 2 + side * num_squares   // x position of the top left corner of the reset button
 #define reset_button_y margin + 3 * side   // y position of the top left corner of the reset button
+#define framerate_indicators_y margin + 5 * side // y position of the set of framerate adjustment indicators
+#define framerate_buttons_y margin + 6 * side // y position of the pair of framerate adjustment buttons
 #define preset_button_width 3 * side   // width of the preset buttons (multiple of side of the square)
 #define preset_button_height side   // height of the preset buttons (multiple of side of the square)
 #define preset_button_x margin * 2 + side * num_squares   // x position of the top left corner of the preset buttons
-
-#define framerate_buttons_y margin + 6 * side
-
 #define preset1_button_y margin + 8 * side   // y position of the top left corner of the first preset button
 #define preset2_button_y margin + 10 * side   // y position of the top left corner of the second preset button
 #define preset3_button_y margin + 12 * side   // y position of the top left corner of the third preset button
@@ -70,6 +69,12 @@ void fill_square(int x0, int y0) {
 	// function that fills the square area with top left corner
 	// at (x0, y0) and with side "side" with color
 	fill(x0, y0, x0 + side, y0 + side);
+}
+
+void fill_square_at_center_of_side(int x0, int y0, int square_side) {
+	// function that fills the square area centered at (x0, y0)
+	// with side square_side
+	fill(x0 - square_side / 2, y0 - square_side / 2, x0 + square_side / 2, y0 + square_side / 2);
 }
 
 void fill_square_at_location(int row, int col) {
@@ -153,6 +158,35 @@ void gen_reset_button() {
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
+void gen_framerate_indicator_1() {
+	// generates an indicator for framerate of 1
+	gfx_color(0, 255, 0);   // setting color to green
+	fill_square_at_center_of_side(reset_button_x + 0.1 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.3 * side);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+void gen_framerate_indicator_2() {
+	// generates an indicator for framerate of 2
+}
+
+void gen_framerate_indicator_3() {
+	// generates an indicator for framerate of 3
+}
+
+void gen_framerate_indicator_4() {
+	// generates an indicator for framerate of 4
+}
+
+void gen_framerate_indicator_5() {
+	// generates an indicator for framerate of 5
+}
+
+void gen_framerate_indicators(int framerate_state) {
+	// generates the framerate indicators according to the
+	// current framerate_state
+	gen_framerate_indicator_1();
+}
+
 void gen_framerate_buttons() {
 	// function that generates the framerate change buttons
 	gfx_color(255, 200, 0);   // setting color to yellow
@@ -206,6 +240,7 @@ void update_all() {
 	gen_board();
 	gen_start_button();
 	gen_reset_button();
+	gen_framerate_indicators(1);
 	gen_framerate_buttons();
 	gen_preset1_button();
 	gen_preset2_button();
