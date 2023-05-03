@@ -15,7 +15,41 @@ void preset1() {
 }
 
 void preset2() {
-	// function that modifies the field matrix according to the second preset
+    // function that modifies the field matrix according to the second preset
+	empty_field();
+	field[1][2] = 1;
+	field[1][5] = 1;
+	field[2][1] = 1;
+	field[3][1] = 1;
+	field[3][5] = 1;
+    field[4][1] = 1;
+    field[4][2] = 1;
+    field[4][3] = 1;
+    field[4][4] = 1;
+}
+
+void preset3() {
+	// function that modifies the field matrix according to the third preset
+	empty_field();
+	field[4][3] = 1;
+	field[5][4] = 1;
+	field[3][5] = 1;
+	field[4][5] = 1;
+	field[5][5] = 1;
+}
+
+void preset4() {
+	// function that modifies the field matrix according to the fourth preset
+	empty_field();
+	field[4][3] = 1;
+	field[5][4] = 1;
+	field[3][5] = 1;
+	field[4][5] = 1;
+	field[5][5] = 1;
+}
+
+void preset5() {
+	// function that modifies the field matrix according to the fifth preset
 	empty_field();
 	field[0][5] = 1;
 	field[1][5] = 1;
@@ -61,8 +95,8 @@ void preset2() {
 	field[35][4] = 1;
 }
 
-void preset3() {
-	// function that modifies the field matrix according to the third preset
+void preset6() {
+	// function that modifies the field matrix according to the sixth preset
 	empty_field();
 	field[0][5] = 1;
 	field[1][5] = 1;

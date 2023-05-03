@@ -22,6 +22,9 @@
 #define preset1_button_y margin + 8 * side   // y position of the top left corner of the first preset button
 #define preset2_button_y margin + 10 * side   // y position of the top left corner of the second preset button
 #define preset3_button_y margin + 12 * side   // y position of the top left corner of the third preset button
+#define preset4_button_y margin + 14 * side   // y position of the top left corner of the first preset button
+#define preset5_button_y margin + 16 * side   // y position of the top left corner of the second preset button
+#define preset6_button_y margin + 18 * side   // y position of the top left corner of the third preset button
 
 // field storing the information about the cells
 int field[num_squares][num_squares];

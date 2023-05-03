@@ -84,6 +84,24 @@ int main() {
 				update_all(sleep_time);
 				break;
 
+			case 9:
+				// clicked on the fourth preset button
+				preset4();
+				update_all(sleep_time);
+				break;
+			
+			case 10:
+				// clicked on the fifth preset button
+				preset5();
+				update_all(sleep_time);
+				break;
+
+			case 11:
+				// clicked on the sixth preset button
+				preset6();
+				update_all(sleep_time);
+				break;
+
 			default:
 				break;
 			}

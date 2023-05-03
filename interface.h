@@ -197,22 +197,43 @@ void gen_framerate_buttons() {
 
 void gen_preset1_button() {
 	// function that generates the first preset button
-	gfx_color(90, 90, 90);   // setting color to red
+	gfx_color(90, 90, 90);   // setting color to gray
 	fill(button_x, preset1_button_y, button_x + large_button_width, preset1_button_y + button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_preset2_button() {
 	// function that generates the second preset button
-	gfx_color(90, 90, 90);   // setting color to red
+	gfx_color(90, 90, 90);   // setting color to gray
 	fill(button_x, preset2_button_y, button_x + large_button_width, preset2_button_y + button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_preset3_button() {
 	// function that generates the third preset button
-	gfx_color(90, 90, 90);   // setting color to red
+	gfx_color(90, 90, 90);   // setting color to gray
 	fill(button_x, preset3_button_y, button_x + large_button_width, preset3_button_y + button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+void gen_preset4_button() {
+	// function that generates the fourth preset button
+	gfx_color(90, 90, 90);   // setting color to gray
+	fill(button_x, preset4_button_y, button_x + large_button_width, preset4_button_y + button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+void gen_preset5_button() {
+	// function that generates the fifth preset button
+	gfx_color(90, 90, 90);   // setting color to gray
+	fill(button_x, preset5_button_y, button_x + large_button_width, preset5_button_y + button_height);
+	gfx_color(0, 200, 100);   // resetting default color to green
+}
+
+void gen_preset6_button() {
+	// function that generates the sixth preset button
+	gfx_color(90, 90, 90);   // setting color to gray
+	fill(button_x, preset6_button_y, button_x + large_button_width, preset6_button_y + button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
@@ -242,6 +263,9 @@ void update_all(int sleep_time) {
 	gen_preset1_button();
 	gen_preset2_button();
 	gen_preset3_button();
+    gen_preset4_button();
+	gen_preset5_button();
+	gen_preset6_button();
 	gfx_flush();
 }
 

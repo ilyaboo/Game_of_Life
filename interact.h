@@ -37,6 +37,18 @@ int click_pos(int x, int y) {
 	 (y >= preset3_button_y && y <= preset3_button_y + button_height)) {
 		// the user chose preset 3
 		return 8;
+    } else if ((x >= button_x && x <= button_x + large_button_width) &&\
+	 (y >= preset4_button_y && y <= preset4_button_y + button_height)) {
+		// the user chose preset 4
+		return 9;
+	} else if ((x >= button_x && x <= button_x + large_button_width) &&\
+	 (y >= preset5_button_y && y <= preset5_button_y + button_height)) {
+		// the user chose preset 5
+		return 10;
+	} else if ((x >= button_x && x <= button_x + large_button_width) &&\
+	 (y >= preset6_button_y && y <= preset6_button_y + button_height)) {
+		// the user chose preset 6
+		return 11;
 	} else {
 		// missed any element of the interface
 		return 0;
