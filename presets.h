@@ -17,14 +17,14 @@ void preset1() {
 void preset2() {
     // function that modifies the field matrix according to the second preset
 	empty_field();
-	field[1][2] = 1;
-	field[1][5] = 1;
-	field[2][1] = 1;
-	field[3][1] = 1;
-	field[3][5] = 1;
-    field[4][1] = 1;
-    field[4][2] = 1;
-    field[4][3] = 1;
+	field[1][1] = 1;
+	field[4][1] = 1;
+	field[5][2] = 1;
+	field[5][3] = 1;
+	field[1][3] = 1;
+    field[5][4] = 1;
+    field[2][4] = 1;
+    field[3][4] = 1;
     field[4][4] = 1;
 }
 
@@ -41,10 +41,10 @@ void preset3() {
 void preset4() {
 	// function that modifies the field matrix according to the fourth preset
 	empty_field();
-	field[4][3] = 1;
-	field[5][4] = 1;
-	field[3][5] = 1;
+	field[3][4] = 1;
 	field[4][5] = 1;
+	field[5][3] = 1;
+	field[5][4] = 1;
 	field[5][5] = 1;
 }
 
