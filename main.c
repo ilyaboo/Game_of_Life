@@ -15,7 +15,6 @@
 // general game parameters
 #define max_epochs 50   // the maximum number of epochs after which the program stops, default: 50
 #define num_squares 40   // number of sqaures in a row/column, default: 40
-#define sleep_time 4 * 100000   // time for refreshing the field in microseconds, default: 0.4s
 
 // display parameters
 #define side 15   // length of the side of one square, default: 15
@@ -237,11 +236,11 @@ int click_pos(int x, int y) {
 	} else if ((x >= reset_button_x && x <= reset_button_x + 1.2 * side) &&\
 	 (y >= framerate_buttons_y && y <= framerate_buttons_y + reset_button_height)) {
 		// the user clicked on the decrease frameraet button
-		return 7;
+		return 4;
 	} else if ((x >= reset_button_x + 1.8 * side && x <= reset_button_x + 3 * side) &&\
 	 (y >= framerate_buttons_y && y <= framerate_buttons_y + reset_button_height)) {
 		// the user clicked on the increase framerate button
-		return 8;
+		return 5;
 	} else if ((x >= preset_button_x && x <= preset_button_x + preset_button_width) &&\
 	 (y >= preset1_button_y && y <= preset1_button_y + preset_button_height)) {
 		// the user chose preset 1
@@ -291,10 +290,10 @@ void preset1() {
 	// function that modifies the field matrix according to the first preset
 	empty_field();
 	field[4][3] = 1;
-	field[5][3] = 1;
-	field[3][4] = 1;
-	field[4][4] = 1;
+	field[5][4] = 1;
+	field[3][5] = 1;
 	field[4][5] = 1;
+	field[5][5] = 1;
 }
 
 void preset2() {
@@ -497,6 +496,7 @@ int update_field() {
 ///////////////////////////////////////
 
 int main() {
+	int sleep_time = 4 * 10000;   // time for refreshing the field in microseconds, default: 0.4s
 	int ysize = margin * 2 + side * num_squares;   // vertical size of the window
 	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
 	gfx_open(xsize, ysize, "Game of Life");   // creating the window
@@ -508,42 +508,67 @@ int main() {
 			int x = gfx_xpos();   // obtaining the coordinates of the point on which user clicked
 			int y = gfx_ypos();
 			int result = click_pos(x, y);   // identify the element on which user clicked
-			if (result == 1) {
+			int row, col, not_done, epoch_counter;
+
+			switch (result) {
+			case 1:
 				// clicked on the field
-				int row = get_row(x);
-				int col = get_col(y);
+				row = get_row(x);
+				col = get_col(y);
 				if (field[row][col] == 0) {
 					field[row][col] = 1;   // if the field was empty
 				} else {
 					field[row][col] = 0;   // if the field was filled
 				}
 				update_all();
-			} else if (result == 2) {
+				break;
+			
+			case 2:
 				// clicked on the start button
-				int not_done = 1;
-				int epoch_counter = 0;
+				not_done = 1;
+				epoch_counter = 0;
 				while (not_done && epoch_counter < max_epochs) {
 					epoch_counter += 1;
 					not_done = update_field();
 					update_all();
-					usleep(sleep_time);   // refresh field every 0.5 seconds
+					usleep(sleep_time);   // refresh field according to framerate
 				}
-			} else if (result == 3) {
+				break;
+
+			case 3:
 				// clicked on the reset button
 				empty_field();
 				update_all();
-			} else if (result == 6) {
+				break;
+			
+			case 4:
+				// clicked on framerate decrease button
+				break;
+
+			case 5:
+				// clicked on framerate increase button
+				break;
+			
+			case 6:
 				// clicked on the first preset button
 				preset1();
 				update_all();
-			} else if (result == 7) {
+				break;
+			
+			case 7:
 				// clicked on the second preset button
 				preset2();
 				update_all();
-			} else if (result == 8) {
+				break;
+
+			case 8:
 				// clicked on the third preset button
 				preset3();
 				update_all();
+				break;
+
+			default:
+				break;
 			}
 		}
 	}
