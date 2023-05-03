@@ -161,30 +161,46 @@ void gen_reset_button() {
 void gen_framerate_indicator_1() {
 	// generates an indicator for framerate of 1
 	gfx_color(0, 255, 0);   // setting color to green
-	fill_square_at_center_of_side(reset_button_x + 0.1 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.3 * side);
+	fill_square_at_center_of_side(reset_button_x + 0.1 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_2() {
 	// generates an indicator for framerate of 2
+	gfx_color(173, 255, 47);   // setting color to green
+	fill_square_at_center_of_side(reset_button_x + 0.3 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_3() {
 	// generates an indicator for framerate of 3
+	gfx_color(255, 255, 0);   // setting color to green
+	fill_square_at_center_of_side(reset_button_x + 0.5 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_4() {
 	// generates an indicator for framerate of 4
+	gfx_color(255, 165, 0);   // setting color to green
+	fill_square_at_center_of_side(reset_button_x + 0.7 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_5() {
 	// generates an indicator for framerate of 5
+	gfx_color(255, 0, 0);   // setting color to green
+	fill_square_at_center_of_side(reset_button_x + 0.9 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicators(int framerate_state) {
 	// generates the framerate indicators according to the
 	// current framerate_state
 	gen_framerate_indicator_1();
+	gen_framerate_indicator_2();
+	gen_framerate_indicator_3();
+	gen_framerate_indicator_4();
+	gen_framerate_indicator_5();
 }
 
 void gen_framerate_buttons() {
