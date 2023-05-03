@@ -148,6 +148,9 @@ void gen_start_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
 	fill(start_button_x, start_button_y, start_button_x + start_button_width, start_button_y + start_button_height);
+	gfx_color(0, 150, 57);
+	fill_equilateral_triangle(start_button_x + 1.1 * side, start_button_y + 0.1 * side, 0.8 * side, 2);
+	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_reset_button() {
