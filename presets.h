@@ -31,11 +31,37 @@ void preset2() {
 void preset3() {
 	// function that modifies the field matrix according to the third preset
 	empty_field();
-	field[4][3] = 1;
-	field[5][4] = 1;
-	field[3][5] = 1;
-	field[4][5] = 1;
-	field[5][5] = 1;
+	field[1][5] = 1;
+    field[2][3] = 1;
+    field[2][4] = 1;
+    field[2][6] = 1;
+    field[4][1] = 1;
+    field[4][8] = 1;
+    field[5][1] = 1;
+    field[5][3] = 1;
+    field[5][5] = 1;
+    field[5][6] = 1;
+    field[5][10] = 1;
+	field[6][2] = 1;
+    field[6][6] = 1;
+    field[6][11] = 1;
+    field[7][2] = 1;
+    field[7][7] = 1;
+    field[7][11] = 1;
+    field[8][1] = 1;
+    field[8][5] = 1;
+    field[8][11] = 1;
+    field[9][1] = 1;
+    field[9][8] = 1;
+    field[9][11] = 1;
+    field[10][1] = 1;
+    field[10][4] = 1;
+    field[10][9] = 1;
+    field[10][10] = 1;
+    field[10][11] = 1;
+    field[11][1] = 1;
+    field[11][2] = 1;
+    field[11][3] = 1;
 }
 
 void preset4() {
