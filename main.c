@@ -217,7 +217,7 @@ void gen_framerate_indicators(int sleep_time) {
 			gen_framerate_indicator_3();
 			if (sleep_time < 10000) {
 				gen_framerate_indicator_4();
-				if (sleep_time < 10000) {
+				if (sleep_time < 1000) {
 					gen_framerate_indicator_5();
 				}
 			}
@@ -270,7 +270,7 @@ void gen_board() {
 	}
 }
 
-void update_all() {
+void update_all(int sleep_time) {
 	// function that updates all the interface according to the current
 	// state of the field
 	gfx_clear();
@@ -278,7 +278,7 @@ void update_all() {
 	gen_board();
 	gen_start_button();
 	gen_reset_button();
-	gen_framerate_indicators(1);
+	gen_framerate_indicators(sleep_time);
 	gen_framerate_buttons();
 	gen_preset1_button();
 	gen_preset2_button();
@@ -563,7 +563,6 @@ int update_field() {
 					new_field[row][col] = 1;
 				}
 			}
-
 		}
 	}
 
@@ -594,7 +593,7 @@ int main() {
 	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
 	gfx_open(xsize, ysize, "Game of Life");   // creating the window
 	gfx_color(0, 200, 100);   // setting default color to green
-	update_all();   // generating the grid for the field
+	update_all(sleep_time);   // generating the grid for the field
 	while (1) {
 		int click = gfx_wait();   // reading user's input
 		if (click == 1) {   // if user clicked with LMB
@@ -613,7 +612,7 @@ int main() {
 				} else {
 					field[row][col] = 0;   // if the field was filled
 				}
-				update_all();
+				update_all(sleep_time);
 				break;
 			
 			case 2:
@@ -623,7 +622,7 @@ int main() {
 				while (not_done && epoch_counter < max_epochs) {
 					epoch_counter += 1;
 					not_done = update_field();
-					update_all();
+					update_all(sleep_time);
 					usleep(sleep_time);   // refresh field according to framerate
 				}
 				break;
@@ -631,41 +630,39 @@ int main() {
 			case 3:
 				// clicked on the reset button
 				empty_field();
-				update_all();
+				update_all(sleep_time);
 				break;
 			
 			case 4:
 				// clicked on framerate decrease button
 				// equivalent to increase in sleep time
 				sleep_time = sleep_increase(sleep_time);
-				gen_framerate_indicators(sleep_time);
-				update_all();
+				update_all(sleep_time);
 				break;
 
 			case 5:
 				// clicked on framerate increase button
 				// equivalent to decrease in sleep time
 				sleep_time = sleep_decrease(sleep_time);
-				gen_framerate_indicators(sleep_time);
-				update_all();
+				update_all(sleep_time);
 				break;
 			
 			case 6:
 				// clicked on the first preset button
 				preset1();
-				update_all();
+				update_all(sleep_time);
 				break;
 			
 			case 7:
 				// clicked on the second preset button
 				preset2();
-				update_all();
+				update_all(sleep_time);
 				break;
 
 			case 8:
 				// clicked on the third preset button
 				preset3();
-				update_all();
+				update_all(sleep_time);
 				break;
 
 			default:
