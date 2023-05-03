@@ -144,6 +144,15 @@ void fill_equilateral_triangle(int x0, int y0, int triangle_side, int direction)
 	fill_triangle(x0, y0, x0 + triangle_side, y0 + triangle_side, direction);
 }
 
+void draw_cross(int x0, int y0, int cross_side) {
+	// draws a cross with top left corner at (x0, y0) that
+	// can be drawn inside the square with side cross_side
+	for (int i = 0; i <= cross_side / 6; i++) {
+		gfx_line(x0 + i, y0, x0 + cross_side - cross_side / 6 + i, y0 + cross_side);
+		gfx_line(x0 + i, y0 + cross_side, x0 + cross_side - cross_side / 6 + i, y0);
+	}
+}
+
 void gen_start_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
@@ -158,6 +167,8 @@ void gen_reset_button() {
 	// responsible for launching the simulation
 	gfx_color(255, 85, 65);   // setting color to red
 	fill(reset_button_x, reset_button_y, reset_button_x + reset_button_width, reset_button_y + reset_button_height);
+	gfx_color(210, 70, 50);   // setting color to darker red
+	draw_cross(reset_button_x + 1.1 * side, reset_button_y + 0.1 * side, 0.8 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
