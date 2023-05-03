@@ -115,9 +115,9 @@ void draw_cross(int x0, int y0, int cross_side) {
 void gen_start_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
-	fill(start_button_x, start_button_y, start_button_x + start_button_width, start_button_y + start_button_height);
+	fill(button_x, start_button_y, button_x + large_button_width, start_button_y + button_height);
 	gfx_color(0, 150, 57);
-	fill_equilateral_triangle(start_button_x + 1.1 * side, start_button_y + 0.1 * side, 0.8 * side, 2);
+	fill_equilateral_triangle(button_x + 1.1 * side, start_button_y + 0.1 * side, 0.8 * side, 2);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
@@ -125,44 +125,44 @@ void gen_reset_button() {
 	// function that generates the start button image
 	// responsible for launching the simulation
 	gfx_color(255, 85, 65);   // setting color to red
-	fill(reset_button_x, reset_button_y, reset_button_x + reset_button_width, reset_button_y + reset_button_height);
+	fill(button_x, reset_button_y, button_x + large_button_width, reset_button_y + button_height);
 	gfx_color(210, 70, 50);   // setting color to darker red
-	draw_cross(reset_button_x + 1.1 * side, reset_button_y + 0.1 * side, 0.8 * side);
+	draw_cross(button_x + 1.1 * side, reset_button_y + 0.1 * side, 0.8 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_1() {
 	// generates an indicator for framerate of 1
 	gfx_color(0, 255, 0);   // setting color to green
-	fill_square_at_center_of_side(reset_button_x + 0.1 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	fill_square_at_center_of_side(button_x + 0.1 * large_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_2() {
 	// generates an indicator for framerate of 2
 	gfx_color(173, 255, 47);   // setting color to green
-	fill_square_at_center_of_side(reset_button_x + 0.3 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	fill_square_at_center_of_side(button_x + 0.3 * large_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_3() {
 	// generates an indicator for framerate of 3
 	gfx_color(255, 255, 0);   // setting color to green
-	fill_square_at_center_of_side(reset_button_x + 0.5 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	fill_square_at_center_of_side(button_x + 0.5 * large_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_4() {
 	// generates an indicator for framerate of 4
 	gfx_color(255, 165, 0);   // setting color to green
-	fill_square_at_center_of_side(reset_button_x + 0.7 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	fill_square_at_center_of_side(button_x + 0.7 * large_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_framerate_indicator_5() {
 	// generates an indicator for framerate of 5
 	gfx_color(255, 0, 0);   // setting color to green
-	fill_square_at_center_of_side(reset_button_x + 0.9 * reset_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
+	fill_square_at_center_of_side(button_x + 0.9 * large_button_width, framerate_indicators_y + 0.5 * side, 0.5 * side);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
@@ -187,32 +187,32 @@ void gen_framerate_indicators(int sleep_time) {
 void gen_framerate_buttons() {
 	// function that generates the framerate change buttons
 	gfx_color(255, 200, 0);   // setting color to yellow
-	fill(preset_button_x, framerate_buttons_y, preset_button_x + 1.2 * side, framerate_buttons_y + side);
-	fill(preset_button_x + 1.8 * side, framerate_buttons_y, preset_button_x + 3 * side, framerate_buttons_y + side);
+	fill(button_x, framerate_buttons_y, button_x + 1.2 * side, framerate_buttons_y + side);
+	fill(button_x + 1.8 * side, framerate_buttons_y, button_x + 3 * side, framerate_buttons_y + side);
 	gfx_color(204, 153, 0);
-	fill_equilateral_triangle(preset_button_x + 0.2 * side, framerate_buttons_y + side * 0.1, 0.8 * side, 3);
-	fill_equilateral_triangle(preset_button_x + 2 * side, framerate_buttons_y + side * 0.1, 0.8 * side, 1);
+	fill_equilateral_triangle(button_x + 0.2 * side, framerate_buttons_y + side * 0.1, 0.8 * side, 3);
+	fill_equilateral_triangle(button_x + 2 * side, framerate_buttons_y + side * 0.1, 0.8 * side, 1);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_preset1_button() {
 	// function that generates the first preset button
 	gfx_color(90, 90, 90);   // setting color to red
-	fill(preset_button_x, preset1_button_y, preset_button_x + preset_button_width, preset1_button_y + preset_button_height);
+	fill(button_x, preset1_button_y, button_x + large_button_width, preset1_button_y + button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_preset2_button() {
 	// function that generates the second preset button
 	gfx_color(90, 90, 90);   // setting color to red
-	fill(preset_button_x, preset2_button_y, preset_button_x + preset_button_width, preset2_button_y + preset_button_height);
+	fill(button_x, preset2_button_y, button_x + large_button_width, preset2_button_y + button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 
 void gen_preset3_button() {
 	// function that generates the third preset button
 	gfx_color(90, 90, 90);   // setting color to red
-	fill(preset_button_x, preset3_button_y, preset_button_x + preset_button_width, preset3_button_y + preset_button_height);
+	fill(button_x, preset3_button_y, button_x + large_button_width, preset3_button_y + button_height);
 	gfx_color(0, 200, 100);   // resetting default color to green
 }
 

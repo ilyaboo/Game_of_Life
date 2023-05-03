@@ -9,7 +9,7 @@
 int main() {
 	int sleep_time = 10000;   // time for refreshing the field in microseconds
 	int ysize = margin * 2 + side * num_squares;   // vertical size of the window
-	int xsize = margin * 3 + side * num_squares + start_button_width;   // horizontal size of the window
+	int xsize = margin * 3 + side * num_squares + large_button_width;   // horizontal size of the window
 	gfx_open(xsize, ysize, "Game of Life");   // creating the window
 	gfx_color(0, 200, 100);   // setting default color to green
 	update_all(sleep_time);   // generating the grid for the field
